@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
-
+enum CalculatorButton: String {
+    
+    case zero, one, two, three, four, five, six
+    case equals, plus, minus, multiply, divide
+    case ac, plusMinus, percent
+}
 struct ContentView: View {
     
-    let buttons  = [
-        ["7","8","9","X"],
-        ["4","5","6","-"],
-        ["1","2","3","+"],
-        ["0",".",".","="],
+    let  buttons: [[CalculatorButton]] = [
+    
+        [.one, .two, .three, .plus],
+        [.one, .two, .three, .plus],
+        [.one, .two, .three, .plus]
+    
     ]
     
     var body: some View {
@@ -22,23 +28,22 @@ struct ContentView: View {
             Color.black.edgesIgnoringSafeArea(.all)
             
             VStack {
-                
+               
                 HStack{
                     Spacer()
                     Text("0").foregroundColor(.white)
                         .font(.system(size:72))
-                    
-                }
+                }.padding()
                 
                 ForEach(buttons,id: \.self){ row in
-                    HStack {
+                    HStack (spacing: 12) {
                         ForEach(row,id: \.self){ button in
-                            Text(button)
+                            Text(button.rawValue)
                                 .font(.system(size: 32))
-                                .frame(width: 80, height:  80)
+                                .frame(width: self.buttonWidth() , height: self.buttonWidth())
                                 .foregroundColor(.white)
                                 .background(Color.yellow)
-                                .cornerRadius(40)
+                                .cornerRadius(self.buttonWidth())
                         }
                     }
                 }
@@ -46,10 +51,12 @@ struct ContentView: View {
         }
     }
     
+    func buttonWidth() -> CGFloat {
+        return (UIScreen.main.bounds.width - 5 * 12) /  4
+        
+        }
     }
-    
-    
-    
+
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             ContentView()
