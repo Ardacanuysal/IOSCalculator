@@ -11,14 +11,28 @@ enum CalculatorButton: String {
     case zero, one, two, three, four, five, six
     case equals, plus, minus, multiply, divide
     case ac, plusMinus, percent
+    
+    
+    var background: Color {
+        switch self  {
+        case .zero:
+            return Color(.darkGray)
+        case .ac:
+            return Color(.lightGray)
+        default: return .orange
+            
+            
+        }
+    }
+    
 }
 struct ContentView: View {
     
     let  buttons: [[CalculatorButton]] = [
-    
+        
         [.one, .two, .three, .plus],
+        [.four, .five, .six, .minus],
         [.one, .two, .three, .plus],
-        [.one, .two, .three, .plus]
     
     ]
     
@@ -37,12 +51,12 @@ struct ContentView: View {
                 
                 ForEach(buttons,id: \.self){ row in
                     HStack (spacing: 12) {
-                        ForEach(row,id: \.self){ button in
+                        ForEach(row, id: \.self){ button in
                             Text(button.rawValue)
                                 .font(.system(size: 32))
                                 .frame(width: self.buttonWidth() , height: self.buttonWidth())
                                 .foregroundColor(.white)
-                                .background(Color.yellow)
+                                .background(button.backgroundColor)
                                 .cornerRadius(self.buttonWidth())
                         }
                     }
